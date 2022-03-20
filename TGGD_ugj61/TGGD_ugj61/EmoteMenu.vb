@@ -7,9 +7,9 @@ Module EmoteMenu
         While Not done
             AnsiConsole.WriteLine()
             Dim prompt As New SelectionPrompt(Of String) With
-        {
-            .Title = "[olive]How would you like to villainously emote?[/]"
-        }
+            {
+                .Title = "[olive]How would you like to villainously emote?[/]"
+            }
             prompt.AddChoice(TwirlMustacheText)
             prompt.AddChoice(NeverMindText)
             Select Case AnsiConsole.Prompt(prompt)
