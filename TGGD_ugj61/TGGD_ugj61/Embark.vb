@@ -1,6 +1,5 @@
-﻿Imports UGJ61.Data
+﻿Imports Spectre.Console
 Imports UGJ61.Game
-Imports Spectre.Console
 
 Module Embark
     Private Const EmoteText = "Emote"
@@ -20,7 +19,7 @@ Module Embark
                 .Title = "[olive]Now what?[/]"
             }
             If character.CanInteract Then
-                prompt.AddChoice(InteractText)
+                'prompt.AddChoice(InteractText)
             End If
             prompt.AddChoice(EmoteText)
             prompt.AddChoice(GameMenuText)
