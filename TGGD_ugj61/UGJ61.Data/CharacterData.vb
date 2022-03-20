@@ -38,4 +38,28 @@
                 [CharacterId]=@CharacterId;",
             MakeParameter("@CharacterId", characterId))
     End Function
+    Function ReadForLocationId(locationId As Long) As List(Of Long)
+        Initialize()
+        Using command = CreateCommand(
+            "SELECT [CharacterId] FROM [Characters] WHERE [LocationId]=@LocationId;",
+            MakeParameter("@LocationId", locationId))
+            Using reader = command.ExecuteReader
+                ReadForLocationId = New List(Of Long)
+                While reader.Read
+                    ReadForLocationId.Add(CLng(reader("CharacterId")))
+                End While
+            End Using
+        End Using
+    End Function
+    Function ReadCharacterType(characterId As Long) As Long?
+        Initialize()
+        Return ExecuteScalar(Of Long)(
+            "SELECT
+                [CharacterType]
+            FROM
+                [Characters]
+            WHERE
+                [CharacterId]=@CharacterId;",
+            MakeParameter("@CharacterId", characterId))
+    End Function
 End Module

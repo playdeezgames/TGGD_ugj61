@@ -10,4 +10,21 @@ Public Class Character
             Return New Location(CharacterData.ReadLocationId(Id).Value)
         End Get
     End Property
+    ReadOnly Property CharacterType As CharacterType
+        Get
+            Return CType(CharacterData.ReadCharacterType(Id).Value, CharacterType)
+        End Get
+    End Property
+    ReadOnly Property Name As String
+        Get
+            Select Case CharacterType
+                Case CharacterType.Leftenant
+                    Return "Yer trusty leftenant"
+                Case CharacterType.Villain
+                    Return "The Villain(you)"
+                Case Else
+                    Throw New NotImplementedException
+            End Select
+        End Get
+    End Property
 End Class

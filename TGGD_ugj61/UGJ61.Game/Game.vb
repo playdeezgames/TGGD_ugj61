@@ -4,11 +4,16 @@ Imports UGJ61.Data
 Public Module Game
     Sub Start()
         Store.Reset()
-        CreatePlayerCharacter()
+        Dim locationId = LocationData.Create(LocationType.Lair)
+        CreatePlayerCharacter(locationId)
+        CreateLeftenant(locationId)
     End Sub
 
-    Private Sub CreatePlayerCharacter()
-        Dim locationId = LocationData.Create(LocationType.Lair)
+    Private Sub CreateLeftenant(locationId As Long)
+        CharacterData.Create(CharacterType.Leftenant, locationId)
+    End Sub
+
+    Private Sub CreatePlayerCharacter(locationId As Long)
         Dim characterId = CharacterData.Create(CharacterType.Villain, locationId)
         PlayerData.Write(characterId)
     End Sub

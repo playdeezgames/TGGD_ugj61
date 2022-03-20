@@ -3,39 +3,6 @@ Imports UGJ61.Game
 Imports Spectre.Console
 
 Module Embark
-    Private Const AbandonGameText = "Abandon Game"
-    Friend Const NeverMindText = "Never Mind"
-    Private Const SaveGameText = "Save Game"
-    Private Function ConfirmAbandon() As Boolean
-        Dim prompt = New ConfirmationPrompt("Are you sure you want to abandon the game?")
-        Return AnsiConsole.Prompt(prompt)
-    End Function
-    Private Function HandleGameMenu() As Boolean
-        Dim prompt As New SelectionPrompt(Of String) With
-            {
-            .Title = "[olive]Game Menu:[/]"
-            }
-        prompt.AddChoice(NeverMindText)
-        prompt.AddChoice(SaveGameText)
-        prompt.AddChoice(AbandonGameText)
-        Select Case AnsiConsole.Prompt(prompt)
-            Case AbandonGameText
-                Return ConfirmAbandon()
-            Case SaveGameText
-                HandleSaveGame()
-                Return False
-            Case NeverMindText
-                Return False
-            Case Else
-                Throw New NotImplementedException
-        End Select
-    End Function
-
-    Private Sub HandleSaveGame()
-        AnsiConsole.WriteLine()
-        Dim fileName = AnsiConsole.Ask(Of String)("Filename:")
-        Store.Save(fileName)
-    End Sub
     Private Const EmoteText = "Emote"
     Private Const GameMenuText = "Game Menu"
     Sub Run()
@@ -45,9 +12,9 @@ Module Embark
         Dim done = False
         While Not done
             AnsiConsole.WriteLine()
-            AnsiConsole.MarkupLine("You exist!")
             Dim character As New PlayerCharacter()
             AnsiConsole.MarkupLine($"Location: {character.Location.Name}")
+            ShowCharacters(character.Location)
             Dim prompt As New SelectionPrompt(Of String) With
                 {
                     .Title = "[olive]Now what?[/]"
@@ -56,7 +23,7 @@ Module Embark
             prompt.AddChoice(GameMenuText)
             Select Case AnsiConsole.Prompt(prompt)
                 Case GameMenuText
-                    done = HandleGameMenu()
+                    done = GameMenu.Run()
                 Case EmoteText
                     EmoteMenu.Run()
                 Case Else
@@ -64,5 +31,9 @@ Module Embark
             End Select
         End While
         Game.Finish()
+    End Sub
+
+    Private Sub ShowCharacters(location As Location)
+        AnsiConsole.MarkupLine($"Characters here: {String.Join(", ", location.Characters.Select(Function(x) x.Name))}")
     End Sub
 End Module

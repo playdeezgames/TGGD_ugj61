@@ -20,4 +20,9 @@ Public Class Location
             End Select
         End Get
     End Property
+    ReadOnly Property Characters As List(Of Character)
+        Get
+            Return CharacterData.ReadForLocationId(Id).Select(Function(characterId) New Character(characterId)).ToList
+        End Get
+    End Property
 End Class
