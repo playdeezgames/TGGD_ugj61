@@ -14,11 +14,13 @@ Module InteractMenu
                 prompt.AddChoice(otherCharacter.UniqueName)
             Next
             prompt.AddChoice(NeverMindText)
-            Select Case AnsiConsole.Prompt(prompt)
+            Dim answer = AnsiConsole.Prompt(prompt)
+            Select Case answer
                 Case NeverMindText
                     done = True
                 Case Else
-                    'TODO: parse unique name, send to submenu
+                    Dim otherCharacter = character.Location.Characters.Single(Function(c) c.UniqueName = answer)
+                    InteractCharacterMenu.Run(character, otherCharacter)
             End Select
         End While
     End Sub
