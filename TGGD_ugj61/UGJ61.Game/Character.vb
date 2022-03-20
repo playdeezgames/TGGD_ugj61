@@ -27,6 +27,11 @@ Public Class Character
             End Select
         End Get
     End Property
+    ReadOnly Property UniqueName As String
+        Get
+            Return $"{Name}(#{Id})"
+        End Get
+    End Property
     ReadOnly Property CanInteract As Boolean
         Get
             Return Location.Characters.Any(Function(x) x.Id <> Id)

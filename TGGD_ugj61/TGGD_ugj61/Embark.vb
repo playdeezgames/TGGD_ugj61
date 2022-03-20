@@ -19,7 +19,7 @@ Module Embark
                 .Title = "[olive]Now what?[/]"
             }
             If character.CanInteract Then
-                'prompt.AddChoice(InteractText)
+                prompt.AddChoice(InteractText)
             End If
             prompt.AddChoice(EmoteText)
             prompt.AddChoice(GameMenuText)
