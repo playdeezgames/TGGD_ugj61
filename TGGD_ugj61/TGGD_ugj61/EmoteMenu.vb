@@ -2,6 +2,19 @@
 
 Module EmoteMenu
     Private Const TwirlMustacheText = "Twirl Mustache"
+    Private Sub TwirlMustache()
+        AnsiConsole.MarkupLine(
+"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMMMNkc;'',:lkXMMMMXkl:,'';ckNMMMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMMNk,         'codc'         ,xNMMMMMMMMMMMMMMM
+MMMMMMMMMMMMMMKc.                          .cKWMMMMMMMMMMMMM
+MMMMMMMMMMMMNx'                              'xNMMMMMMMMMMMM
+NKXWMMMMMMNO:.                                .:ONMMMMMMWXKN
+Wk::oxkxdl,.             ..,;;;;,..             .,ldxkxo::kW
+MWO,                .;ldOKNWWMMWWNKOdl;.                ,OWM
+MMMXo.        ..;lx0XWMMMMMMMMMMMMMMMMWX0xl;..        .oXMMM
+MMMMWXxlcclodOKNWMMMMMMMMMMMMMMMMMMMMMMMMMMWNKOdolcclxXMMMMM")
+    End Sub
     Sub Run()
         Dim done = False
         While Not done
@@ -15,6 +28,7 @@ Module EmoteMenu
             Select Case AnsiConsole.Prompt(prompt)
                 Case TwirlMustacheText
                     AnsiConsole.WriteLine()
+                    TwirlMustache()
                     AnsiConsole.MarkupLine("[green]You twirl yer mustache sinisterly.[/]")
                 Case NeverMindText
                     done = True

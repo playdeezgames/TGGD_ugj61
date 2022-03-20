@@ -27,4 +27,9 @@ Public Class Character
             End Select
         End Get
     End Property
+    ReadOnly Property CanInteract As Boolean
+        Get
+            Return Location.Characters.Any(Function(x) x.Id <> Id)
+        End Get
+    End Property
 End Class
