@@ -4,7 +4,7 @@ Imports Spectre.Console
 
 Module Embark
     Private Const AbandonGameText = "Abandon Game"
-    Const NeverMindText = "Never Mind"
+    Friend Const NeverMindText = "Never Mind"
     Private Const SaveGameText = "Save Game"
     Private Function ConfirmAbandon() As Boolean
         Dim prompt = New ConfirmationPrompt("Are you sure you want to abandon the game?")
@@ -36,7 +36,7 @@ Module Embark
         Dim fileName = AnsiConsole.Ask(Of String)("Filename:")
         Store.Save(fileName)
     End Sub
-
+    Private Const EmoteText = "Emote"
     Private Const GameMenuText = "Game Menu"
     Sub Run()
         Game.Start()
@@ -52,10 +52,13 @@ Module Embark
                 {
                     .Title = "[olive]Now what?[/]"
                 }
+            prompt.AddChoice(EmoteText)
             prompt.AddChoice(GameMenuText)
             Select Case AnsiConsole.Prompt(prompt)
                 Case GameMenuText
                     done = HandleGameMenu()
+                Case EmoteText
+                    EmoteMenu.Run()
                 Case Else
                     Throw New NotImplementedException
             End Select
