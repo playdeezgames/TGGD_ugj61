@@ -9,6 +9,12 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "UGJ61.Game", "UGJ61.Game\UG
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "UGJ61.Data", "UGJ61.Data\UGJ61.Data.vbproj", "{8B542823-5542-4C85-A4DB-3D6C6E8F437B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Stuff", "Stuff", "{B532FC7A-0D44-42E3-B3FC-E4F1F3DC33F1}"
+	ProjectSection(SolutionItems) = preProject
+		..\butler.sh = ..\butler.sh
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -8,6 +8,9 @@ Public Module Game
     End Sub
 
     Private Sub CreatePlayerCharacter()
+        Dim locationId = LocationData.Create(LocationType.Lair)
+        Dim characterId = CharacterData.Create(CharacterType.Villain, locationId)
+        PlayerData.Write(characterId)
     End Sub
 
     Sub Finish()
