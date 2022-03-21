@@ -9,4 +9,7 @@ Public Class Plot
         Dim convolutedness = CharacterPlotData.Read(Id).Value
         CharacterPlotData.Write(Id, convolutedness + 1)
     End Sub
+    Sub Cancel()
+        Throw New NotImplementedException()
+    End Sub
 End Class

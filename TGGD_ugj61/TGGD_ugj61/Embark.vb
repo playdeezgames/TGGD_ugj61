@@ -6,10 +6,10 @@ Module Embark
     Private Const GameMenuText = "Game Menu"
     Private Const InteractText = "Interact..."
     Private Const StatisticsText = "Statistics"
-    Private Const HatchPlot = "Hatch a Villainous Plot"
-    Private Const ExecutePlot = "Execute Villainous Plot"
-    Private Const CancelPlot = "Cancel Villainous Plot"
-    Private Const ConvolutePlot = "Convolute Villanous Plot"
+    Private Const HatchPlotText = "Hatch a Villainous Plot"
+    Private Const ExecutePlotText = "Execute Villainous Plot"
+    Private Const CancelPlotText = "Cancel Villainous Plot"
+    Private Const ConvolutePlotText = "Convolute Villanous Plot"
     Sub Run()
         Game.Start()
         AnsiConsole.WriteLine()
@@ -27,22 +27,24 @@ Module Embark
                 prompt.AddChoice(InteractText)
             End If
             If character.CurrentPlot Is Nothing Then
-                prompt.AddChoice(HatchPlot)
+                prompt.AddChoice(HatchPlotText)
             Else
-                'prompt.AddChoice(ExecutePlot)
-                prompt.AddChoice(ConvolutePlot)
-                'prompt.AddChoice(CancelPlot)
+                prompt.AddChoice(ExecutePlotText)
+                prompt.AddChoice(ConvolutePlotText)
+                prompt.AddChoice(CancelPlotText)
             End If
             prompt.AddChoice(EmoteText)
             prompt.AddChoice(StatisticsText)
             prompt.AddChoice(GameMenuText)
             Select Case AnsiConsole.Prompt(prompt)
-                Case HatchPlot
+                Case HatchPlotText
                     HandleHatchingPlot(character)
-                Case ConvolutePlot
+                Case ConvolutePlotText
                     HandleConvolutingPlot(character)
-                Case ExecutePlot
-                    'TODO
+                Case ExecutePlotText
+                    HandleExecutingPlot(character)
+                Case CancelPlotText
+                    HandleCancelingPlot(character)
                 Case StatisticsText
                     ShowStatistics(character)
                 Case InteractText
@@ -56,6 +58,16 @@ Module Embark
             End Select
         End While
         Game.Finish()
+    End Sub
+
+    Private Sub HandleCancelingPlot(character As PlayerCharacter)
+        character.CurrentPlot.Cancel()
+        AnsiConsole.WriteLine()
+        AnsiConsole.MarkupLine("[green]You cancel yer villainous plot![/]")
+    End Sub
+
+    Private Sub HandleExecutingPlot(character As PlayerCharacter)
+        Throw New NotImplementedException()
     End Sub
 
     Private Sub HandleConvolutingPlot(character As PlayerCharacter)
