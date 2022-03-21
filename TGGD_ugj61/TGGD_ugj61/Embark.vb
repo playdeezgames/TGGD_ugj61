@@ -6,6 +6,10 @@ Module Embark
     Private Const GameMenuText = "Game Menu"
     Private Const InteractText = "Interact..."
     Private Const StatisticsText = "Statistics"
+    Private Const HatchPlot = "Hatch a Villainous Plot"
+    Private Const ExecutePlot = "Execute Villainous Plot"
+    Private Const CancelPlot = "Cancel Villainous Plot"
+    Private Const ConvolutePlot = "Convolute Villanous Plot"
     Sub Run()
         Game.Start()
         AnsiConsole.WriteLine()
@@ -22,10 +26,23 @@ Module Embark
             If character.CanInteract Then
                 prompt.AddChoice(InteractText)
             End If
+            If character.CurrentPlot Is Nothing Then
+                prompt.AddChoice(HatchPlot)
+            Else
+                'prompt.AddChoice(ExecutePlot)
+                prompt.AddChoice(ConvolutePlot)
+                'prompt.AddChoice(CancelPlot)
+            End If
             prompt.AddChoice(EmoteText)
             prompt.AddChoice(StatisticsText)
             prompt.AddChoice(GameMenuText)
             Select Case AnsiConsole.Prompt(prompt)
+                Case HatchPlot
+                    HandleHatchingPlot(character)
+                Case ConvolutePlot
+                    HandleConvolutingPlot(character)
+                Case ExecutePlot
+                    'TODO
                 Case StatisticsText
                     ShowStatistics(character)
                 Case InteractText
@@ -41,6 +58,17 @@ Module Embark
         Game.Finish()
     End Sub
 
+    Private Sub HandleConvolutingPlot(character As PlayerCharacter)
+        character.CurrentPlot.Convolute()
+        AnsiConsole.WriteLine()
+        AnsiConsole.MarkupLine("[green]You convolute yer villainous plot![/]")
+    End Sub
+
+    Private Sub HandleHatchingPlot(character As PlayerCharacter)
+        character.HatchPlot()
+        AnsiConsole.WriteLine()
+        AnsiConsole.MarkupLine("[green]You hatch a villainous plot![/]")
+    End Sub
     Private Sub ShowStatistics(character As PlayerCharacter)
         AnsiConsole.WriteLine()
         AnsiConsole.MarkupLine("[teal]Statistics:[/]")

@@ -46,4 +46,18 @@ Public Class Character
     Sub ChangeStatistic(statisticType As StatisticType, delta As Long)
         CharacterStatisticData.Write(Id, statisticType, GetStatistic(statisticType).Value + delta)
     End Sub
+    ReadOnly Property CurrentPlot As Plot
+        Get
+            If CharacterPlotData.Read(Id).HasValue Then
+                Return New Plot(Id)
+            Else
+                Return Nothing
+            End If
+        End Get
+    End Property
+    Sub HatchPlot()
+        If CurrentPlot Is Nothing Then
+            CharacterPlotData.Write(Id, 0)
+        End If
+    End Sub
 End Class
