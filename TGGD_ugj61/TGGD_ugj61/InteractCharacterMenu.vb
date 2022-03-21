@@ -31,10 +31,12 @@ Module InteractCharacterMenu
     Private Sub HandleSlap(otherCharacter As Character)
         AnsiConsole.WriteLine()
         AnsiConsole.MarkupLine($"[green]You slap {otherCharacter.Name}.[/]")
+        Game.Play(Sfx.Slap)
     End Sub
 
     Private Sub HandleChide(otherCharacter As Character)
         AnsiConsole.WriteLine()
         AnsiConsole.MarkupLine($"[green]You chide {otherCharacter.Name}.[/]")
+        Game.Play(Sfx.Chide)
     End Sub
 End Module

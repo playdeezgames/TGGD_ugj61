@@ -5,6 +5,7 @@ Module Embark
     Private Const EmoteText = "Emote"
     Private Const GameMenuText = "Game Menu"
     Private Const InteractText = "Interact..."
+    Private Const StatisticsText = "Statistics"
     Sub Run()
         Game.Start()
         AnsiConsole.WriteLine()
@@ -22,8 +23,11 @@ Module Embark
                 prompt.AddChoice(InteractText)
             End If
             prompt.AddChoice(EmoteText)
+            prompt.AddChoice(StatisticsText)
             prompt.AddChoice(GameMenuText)
             Select Case AnsiConsole.Prompt(prompt)
+                Case StatisticsText
+                    ShowStatistics(character)
                 Case InteractText
                     InteractMenu.Run(character)
                 Case GameMenuText
@@ -36,6 +40,15 @@ Module Embark
         End While
         Game.Finish()
     End Sub
+
+    Private Sub ShowStatistics(character As PlayerCharacter)
+        AnsiConsole.WriteLine()
+        AnsiConsole.MarkupLine("[teal]Statistics:[/]")
+        For Each statisticType In AllStatisticTypes.Where(Function(x) character.HasStatistic(x))
+            AnsiConsole.MarkupLine($"{statisticType.Name}: {character.GetStatistic(statisticType).Value}")
+        Next
+    End Sub
+
     Private Sub ShowCharacters(location As Location)
         AnsiConsole.MarkupLine($"Characters here: {String.Join(", ", location.Characters.Select(Function(x) x.Name))}")
     End Sub

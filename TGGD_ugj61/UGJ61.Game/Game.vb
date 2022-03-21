@@ -15,6 +15,7 @@ Public Module Game
 
     Private Sub CreatePlayerCharacter(locationId As Long)
         Dim characterId = CharacterData.Create(CharacterType.Villain, locationId)
+        CharacterStatisticData.Write(characterId, StatisticType.Villainy, 0)
         PlayerData.Write(characterId)
     End Sub
 

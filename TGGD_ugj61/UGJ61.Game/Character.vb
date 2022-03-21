@@ -37,4 +37,13 @@ Public Class Character
             Return Location.Characters.Any(Function(x) x.Id <> Id)
         End Get
     End Property
+    Function HasStatistic(statisticType As StatisticType) As Boolean
+        Return GetStatistic(statisticType).HasValue
+    End Function
+    Function GetStatistic(statisticType As StatisticType) As Long?
+        Return CharacterStatisticData.Read(Id, statisticType)
+    End Function
+    Sub ChangeStatistic(statisticType As StatisticType, delta As Long)
+        CharacterStatisticData.Write(Id, statisticType, GetStatistic(statisticType).Value + delta)
+    End Sub
 End Class

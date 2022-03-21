@@ -1,8 +1,11 @@
 ﻿Imports Spectre.Console
+Imports UGJ61.Game
 
 Module EmoteMenu
     Private Const TwirlMustacheText = "Twirl Mustache"
     Private Sub TwirlMustache()
+        Dim character As New PlayerCharacter
+        character.ChangeStatistic(StatisticType.Villainy, 1)
         AnsiConsole.MarkupLine(
 "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMNkc;'',:lkXMMMMXkl:,'';ckNMMMMMMMMMMMMMMMMM
