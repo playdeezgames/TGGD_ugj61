@@ -17,9 +17,9 @@ Module InteractCharacterMenu
             prompt.AddChoice(NeverMindText)
             Select Case AnsiConsole.Prompt(prompt)
                 Case ChideText
-                    HandleChide(otherCharacter)
+                    HandleChide(character, otherCharacter)
                 Case SlapText
-                    HandleSlap(otherCharacter)
+                    HandleSlap(character, otherCharacter)
                 Case NeverMindText
                     done = True
                 Case Else
@@ -28,15 +28,17 @@ Module InteractCharacterMenu
         End While
     End Sub
 
-    Private Sub HandleSlap(otherCharacter As Character)
+    Private Sub HandleSlap(character As Character, otherCharacter As Character)
         AnsiConsole.WriteLine()
         AnsiConsole.MarkupLine($"[green]You slap {otherCharacter.Name}.[/]")
         Game.Play(Sfx.Slap)
+        character.ChangeStatistic(StatisticType.Villainy, 1)
     End Sub
 
-    Private Sub HandleChide(otherCharacter As Character)
+    Private Sub HandleChide(character As Character, otherCharacter As Character)
         AnsiConsole.WriteLine()
         AnsiConsole.MarkupLine($"[green]You chide {otherCharacter.Name}.[/]")
         Game.Play(Sfx.Chide)
+        character.ChangeStatistic(StatisticType.Villainy, 1)
     End Sub
 End Module
