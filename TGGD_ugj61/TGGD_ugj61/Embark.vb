@@ -10,6 +10,7 @@ Module Embark
     Private Const ExecutePlotText = "Execute Villainous Plot"
     Private Const CancelPlotText = "Cancel Villainous Plot"
     Private Const ConvolutePlotText = "Convolute Villanous Plot"
+    Private Const HireMinionText = "Hire Minion"
     Sub Run()
         Game.Start()
         AnsiConsole.WriteLine()
@@ -17,7 +18,7 @@ Module Embark
         Dim done = False
         While Not done
             AnsiConsole.WriteLine()
-            Dim character As New PlayerCharacter()
+            Dim character As New PlayerCharacter
             AnsiConsole.MarkupLine($"Location: {character.Location.Name}")
             ShowCharacters(character.Location)
             Dim prompt As New SelectionPrompt(Of String) With {
@@ -33,10 +34,15 @@ Module Embark
                 prompt.AddChoice(ConvolutePlotText)
                 prompt.AddChoice(CancelPlotText)
             End If
+            If character.CanHireMinion Then
+                prompt.AddChoice(HireMinionText)
+            End If
             prompt.AddChoice(EmoteText)
             prompt.AddChoice(StatisticsText)
             prompt.AddChoice(GameMenuText)
             Select Case AnsiConsole.Prompt(prompt)
+                Case HireMinionText
+                    HandleHiringMinion(character)
                 Case HatchPlotText
                     HandleHatchingPlot(character)
                 Case ConvolutePlotText
@@ -59,7 +65,11 @@ Module Embark
         End While
         Game.Finish()
     End Sub
-
+    Private Sub HandleHiringMinion(character As PlayerCharacter)
+        character.HireMinion()
+        AnsiConsole.WriteLine()
+        AnsiConsole.MarkupLine("[green]You hire a minion![/]")
+    End Sub
     Private Sub HandleCancelingPlot(character As PlayerCharacter)
         character.CurrentPlot.Cancel()
         AnsiConsole.WriteLine()

@@ -2,6 +2,7 @@
 
 Public Enum StatisticType
     Villainy
+    MinionCost
 End Enum
 Public Module StatisticTypeExtensions
     <Extension()>
@@ -9,6 +10,8 @@ Public Module StatisticTypeExtensions
         Select Case statisticType
             Case StatisticType.Villainy
                 Name = "Villainy"
+            Case StatisticType.MinionCost
+                Name = "Minion Cost"
             Case Else
                 Throw New NotImplementedException
         End Select

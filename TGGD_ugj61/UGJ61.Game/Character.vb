@@ -22,6 +22,12 @@ Public Class Character
                     Return "Yer trusty leftenant"
                 Case CharacterType.Villain
                     Return "The Villain(you)"
+                Case CharacterType.Henchman
+                    Return "A minion"
+                Case CharacterType.Hero
+                    Return "The Hero"
+                Case CharacterType.LoveInterest
+                    Return "Yer Love Interest"
                 Case Else
                     Throw New NotImplementedException
             End Select
@@ -58,6 +64,18 @@ Public Class Character
     Sub HatchPlot()
         If CurrentPlot Is Nothing Then
             CharacterPlotData.Write(Id, 0)
+        End If
+    End Sub
+    ReadOnly Property CanHireMinion As Boolean
+        Get
+            Return GetStatistic(StatisticType.Villainy).Value >= GetStatistic(StatisticType.MinionCost).Value
+        End Get
+    End Property
+    Sub HireMinion()
+        If CanHireMinion Then
+            ChangeStatistic(StatisticType.Villainy, -GetStatistic(StatisticType.MinionCost).Value)
+            CharacterData.Create(CharacterType.Henchman, Location.Id)
+            ChangeStatistic(StatisticType.MinionCost, 1)
         End If
     End Sub
 End Class
