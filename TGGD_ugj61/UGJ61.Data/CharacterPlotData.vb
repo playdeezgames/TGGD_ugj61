@@ -20,4 +20,10 @@
             MakeParameter("@CharacterId", characterId),
             MakeParameter("@Convolutedness", convolutedness))
     End Sub
+    Sub Clear(characterId As Long)
+        Initialize()
+        ExecuteNonQuery(
+            "DELETE FROM [CharacterPlots] WHERE [CharacterId]=@CharacterId;",
+            MakeParameter("@CharacterId", characterId))
+    End Sub
 End Module

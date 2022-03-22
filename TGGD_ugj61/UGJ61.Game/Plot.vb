@@ -10,6 +10,7 @@ Public Class Plot
         CharacterPlotData.Write(Id, convolutedness + 1)
     End Sub
     Sub Cancel()
-        Throw New NotImplementedException()
+        CharacterStatisticData.Write(Id, StatisticType.Villainy, CharacterStatisticData.Read(Id, StatisticType.Villainy).Value \ 2)
+        CharacterPlotData.Clear(Id)
     End Sub
 End Class
