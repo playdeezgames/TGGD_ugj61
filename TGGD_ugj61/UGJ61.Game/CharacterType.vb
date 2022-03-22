@@ -4,6 +4,8 @@ Public Enum CharacterType
     Villain
     Leftenant
     Henchman
+    LoveInterest
+    Hero
 End Enum
 Public Module CharacterTypeExtensions
     <Extension()>

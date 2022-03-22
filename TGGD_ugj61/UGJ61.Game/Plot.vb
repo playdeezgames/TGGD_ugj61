@@ -20,6 +20,32 @@ Public Class Plot
             Return minions.Count * 2 >= convolutedness
         End Get
     End Property
+    Private Sub ProcessSuccess(ByRef results As List(Of PlotResult), convolutedness As Long)
+        Dim character As New Character(Id)
+        Dim hasHero = character.Location.HasCharacterType(CharacterType.Hero)
+        Dim hasLoveInterest = character.Location.HasCharacterType(CharacterType.LoveInterest)
+        If convolutedness > 20 AndAlso Not hasHero Then
+            results.Add(PlotResult.CaptureHero)
+            'TODO: add hero
+            convolutedness -= 20
+        End If
+        If convolutedness > 10 AndAlso Not hasLoveInterest Then
+            results.Add(PlotResult.CaptureLoveInterest)
+            'TODO: add love interest
+            convolutedness -= 10
+        End If
+        If convolutedness > 5 Then
+            results.Add(PlotResult.GainMinions)
+        End If
+        While convolutedness > 5
+            convolutedness -= 5
+            CharacterData.Create(CharacterType.Henchman, character.Location.Id)
+        End While
+        If convolutedness > 0 Then
+            results.Add(PlotResult.GainVillainy)
+            character.ChangeStatistic(StatisticType.Villainy, convolutedness)
+        End If
+    End Sub
     Function Execute() As List(Of PlotResult)
         Dim convolutedness = CharacterPlotData.Read(Id).Value
         Dim minionCount = New Character(Id).Location.Characters.Where(Function(character) character.CharacterType.CanExecutePlot).Count
@@ -32,6 +58,7 @@ Public Class Plot
         Dim results As New List(Of PlotResult)
         If RNG.FromGenerator(generator) Then
             results.Add(PlotResult.Success)
+            ProcessSuccess(results, convolutedness)
         Else
             results.Add(PlotResult.Failure)
         End If

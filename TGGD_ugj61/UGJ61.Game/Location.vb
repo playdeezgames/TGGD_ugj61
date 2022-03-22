@@ -25,4 +25,7 @@ Public Class Location
             Return CharacterData.ReadForLocationId(Id).Select(Function(characterId) New Character(characterId)).ToList
         End Get
     End Property
+    Function HasCharacterType(characterType As CharacterType) As Boolean
+        Return Characters.Any(Function(character) character.CharacterType = characterType)
+    End Function
 End Class
