@@ -63,11 +63,32 @@ Module Embark
     Private Sub HandleCancelingPlot(character As PlayerCharacter)
         character.CurrentPlot.Cancel()
         AnsiConsole.WriteLine()
-        AnsiConsole.MarkupLine("[green]You cancel yer villainous plot![/]")
+        AnsiConsole.MarkupLine("[red]You cancel yer villainous plot![/]")
     End Sub
 
     Private Sub HandleExecutingPlot(character As PlayerCharacter)
-        Throw New NotImplementedException()
+        Dim results = character.CurrentPlot.Execute()
+        AnsiConsole.WriteLine()
+        For Each result In results
+            Select Case result
+                Case PlotResult.Success
+                    AnsiConsole.MarkupLine("[green]You succeed![/]")
+                Case PlotResult.Failure
+                    AnsiConsole.MarkupLine("[red]You fail![/]")
+                Case PlotResult.CaptureHero
+                    AnsiConsole.MarkupLine("[green]You capture the hero![/]")
+                Case PlotResult.CaptureLoveInterest
+                    AnsiConsole.MarkupLine("[green]You capture yer love interest![/]")
+                Case PlotResult.GainMinions
+                    AnsiConsole.MarkupLine("[green]You gain minions![/]")
+                Case PlotResult.GainVillainy
+                    AnsiConsole.MarkupLine("[green]You gain villainy![/]")
+                Case PlotResult.LoseMinions
+                    AnsiConsole.MarkupLine("[red]You lose minions![/]")
+                Case Else
+                    Throw New NotImplementedException
+            End Select
+        Next
     End Sub
 
     Private Sub HandleConvolutingPlot(character As PlayerCharacter)
