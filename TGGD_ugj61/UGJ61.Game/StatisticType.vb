@@ -3,6 +3,7 @@
 Public Enum StatisticType
     Villainy
     MinionCost
+    ConstructionNeeded
 End Enum
 Public Module StatisticTypeExtensions
     <Extension()>

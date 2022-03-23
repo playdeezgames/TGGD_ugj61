@@ -8,6 +8,8 @@ Module Embark
     Private Const StatisticsText = "Statistics"
     Private Const HireMinionText = "Hire Minion"
     Private Const VillainousPlotText = "Villainous Plot..."
+    Private Const DeathTrapText = "Death Trap..."
+
     Sub Run()
         Game.Start()
         AnsiConsole.WriteLine()
@@ -28,6 +30,7 @@ Module Embark
             If character.CanHireMinion Then
                 prompt.AddChoice(HireMinionText)
             End If
+            prompt.AddChoice(DeathTrapText)
             prompt.AddChoice(EmoteText)
             prompt.AddChoice(StatisticsText)
             prompt.AddChoice(GameMenuText)
@@ -44,6 +47,8 @@ Module Embark
                     done = GameMenu.Run()
                 Case EmoteText
                     EmoteMenu.Run()
+                Case DeathTrapText
+                    DeathTrapMenu.Run(character)
                 Case Else
                     Throw New NotImplementedException
             End Select

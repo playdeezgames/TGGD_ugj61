@@ -33,4 +33,15 @@
             MakeParameter("@LocationId", locationId))
 
     End Function
+    Function ReadCountByLocationType(locationType As Long) As Long
+        Initialize()
+        Return ExecuteScalar(Of Long)(
+            "SELECT
+                COUNT([LocationId])
+            FROM
+                [Locations]
+            WHERE
+                [LocationType] = @LocationType;",
+            MakeParameter("@LocationType", locationType)).Value
+    End Function
 End Module

@@ -7,7 +7,7 @@ Module EmoteMenu
         Dim character As New PlayerCharacter
         character.ChangeStatistic(StatisticType.Villainy, 1)
         AnsiConsole.MarkupLine(
-"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+"[fuchsia]MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMMMNkc;'',:lkXMMMMXkl:,'';ckNMMMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMMNk,         'codc'         ,xNMMMMMMMMMMMMMMM
 MMMMMMMMMMMMMMKc.                          .cKWMMMMMMMMMMMMM
@@ -16,7 +16,7 @@ NKXWMMMMMMNO:.                                .:ONMMMMMMWXKN
 Wk::oxkxdl,.             ..,;;;;,..             .,ldxkxo::kW
 MWO,                .;ldOKNWWMMWWNKOdl;.                ,OWM
 MMMXo.        ..;lx0XWMMMMMMMMMMMMMMMMWX0xl;..        .oXMMM
-MMMMWXxlcclodOKNWMMMMMMMMMMMMMMMMMMMMMMMMMMWNKOdolcclxXMMMMM")
+MMMMWXxlcclodOKNWMMMMMMMMMMMMMMMMMMMMMMMMMMWNKOdolcclxXMMMMM[/]")
     End Sub
     Sub Run()
         Dim done = False
