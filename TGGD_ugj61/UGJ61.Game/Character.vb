@@ -33,6 +33,13 @@ Public Class Character
             End Select
         End Get
     End Property
+
+    ReadOnly Property CanWoo As Boolean
+        Get
+            Return CharacterType = CharacterType.LoveInterest
+        End Get
+    End Property
+
     ReadOnly Property UniqueName As String
         Get
             Return $"{Name}(#{Id})"
@@ -69,6 +76,27 @@ Public Class Character
     ReadOnly Property CanHireMinion As Boolean
         Get
             Return GetStatistic(StatisticType.Villainy).Value >= GetStatistic(StatisticType.MinionCost).Value
+        End Get
+    End Property
+
+    ReadOnly Property CanChide As Boolean
+        Get
+            Return CharacterType = CharacterType.Leftenant OrElse CharacterType = CharacterType.Minion
+        End Get
+    End Property
+    ReadOnly Property CanSlap As Boolean
+        Get
+            Return CharacterType = CharacterType.Leftenant OrElse CharacterType = CharacterType.Minion OrElse CharacterType = CharacterType.Hero
+        End Get
+    End Property
+    ReadOnly Property CanPlaceInDeathTrap As Boolean
+        Get
+            Return CharacterType = CharacterType.LoveInterest OrElse CharacterType = CharacterType.Hero
+        End Get
+    End Property
+    ReadOnly Property CanMonologueAt As Boolean
+        Get
+            Return CharacterType = CharacterType.LoveInterest OrElse CharacterType = CharacterType.Hero
         End Get
     End Property
     Sub HireMinion()

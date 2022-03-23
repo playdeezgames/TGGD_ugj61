@@ -4,6 +4,9 @@ Imports UGJ61.Game
 Module InteractCharacterMenu
     Private Const ChideText = "Chide"
     Private Const SlapText = "Slap"
+    Private Const WooText = "Woo"
+    Private Const PlaceInDeathTrap = "Place in death trap"
+    Private Const MonologueAt = "Monologue at"
     Sub Run(character As PlayerCharacter, otherCharacter As Character)
         Dim done = False
         While Not done
@@ -12,8 +15,21 @@ Module InteractCharacterMenu
                 {
                     .Title = "[olive]How to interact?[/]"
                 }
-            prompt.AddChoice(ChideText)
-            prompt.AddChoice(SlapText)
+            If otherCharacter.CanChide Then
+                prompt.AddChoice(ChideText)
+            End If
+            If otherCharacter.CanSlap Then
+                prompt.AddChoice(SlapText)
+            End If
+            If otherCharacter.CanWoo Then
+                prompt.AddChoice(WooText)
+            End If
+            If otherCharacter.CanPlaceInDeathTrap Then
+                prompt.AddChoice(PlaceInDeathTrap)
+            End If
+            If otherCharacter.CanMonologueAt Then
+                prompt.AddChoice(MonologueAt)
+            End If
             prompt.AddChoice(NeverMindText)
             Select Case AnsiConsole.Prompt(prompt)
                 Case ChideText
