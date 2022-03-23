@@ -36,11 +36,9 @@ Module DeathTrapMenu
         End While
 
     End Sub
-
     Private Sub HandleConstruction(character As PlayerCharacter)
         Throw New NotImplementedException()
     End Sub
-
     Private Sub HandleBeginConstruction(character As PlayerCharacter)
         Locations.CreateDeathTrap()
         AnsiConsole.WriteLine()
