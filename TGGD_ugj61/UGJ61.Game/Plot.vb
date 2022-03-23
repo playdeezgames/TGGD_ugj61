@@ -9,6 +9,11 @@ Public Class Plot
         Dim convolutedness = CharacterPlotData.Read(Id).Value
         CharacterPlotData.Write(Id, convolutedness + 1)
     End Sub
+    ReadOnly Property Convolutedness As Long
+        Get
+            Return CharacterPlotData.Read(Id).Value
+        End Get
+    End Property
     Sub Cancel()
         CharacterStatisticData.Write(Id, StatisticType.Villainy, CharacterStatisticData.Read(Id, StatisticType.Villainy).Value \ 2)
         CharacterPlotData.Clear(Id)

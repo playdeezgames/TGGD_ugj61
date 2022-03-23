@@ -6,11 +6,8 @@ Module Embark
     Private Const GameMenuText = "Game Menu"
     Private Const InteractText = "Interact..."
     Private Const StatisticsText = "Statistics"
-    Private Const HatchPlotText = "Hatch a Villainous Plot"
-    Private Const ExecutePlotText = "Execute Villainous Plot"
-    Private Const CancelPlotText = "Cancel Villainous Plot"
-    Private Const ConvolutePlotText = "Convolute Villanous Plot"
     Private Const HireMinionText = "Hire Minion"
+    Private Const VillainousPlotText = "Villainous Plot..."
     Sub Run()
         Game.Start()
         AnsiConsole.WriteLine()
@@ -27,13 +24,7 @@ Module Embark
             If character.CanInteract Then
                 prompt.AddChoice(InteractText)
             End If
-            If character.CurrentPlot Is Nothing Then
-                prompt.AddChoice(HatchPlotText)
-            Else
-                prompt.AddChoice(ExecutePlotText)
-                prompt.AddChoice(ConvolutePlotText)
-                prompt.AddChoice(CancelPlotText)
-            End If
+            prompt.AddChoice(VillainousPlotText)
             If character.CanHireMinion Then
                 prompt.AddChoice(HireMinionText)
             End If
@@ -41,16 +32,10 @@ Module Embark
             prompt.AddChoice(StatisticsText)
             prompt.AddChoice(GameMenuText)
             Select Case AnsiConsole.Prompt(prompt)
+                Case VillainousPlotText
+                    PlotMenu.Run(character)
                 Case HireMinionText
                     HandleHiringMinion(character)
-                Case HatchPlotText
-                    HandleHatchingPlot(character)
-                Case ConvolutePlotText
-                    HandleConvolutingPlot(character)
-                Case ExecutePlotText
-                    HandleExecutingPlot(character)
-                Case CancelPlotText
-                    HandleCancelingPlot(character)
                 Case StatisticsText
                     ShowStatistics(character)
                 Case InteractText
@@ -69,48 +54,6 @@ Module Embark
         character.HireMinion()
         AnsiConsole.WriteLine()
         AnsiConsole.MarkupLine("[green]You hire a minion![/]")
-    End Sub
-    Private Sub HandleCancelingPlot(character As PlayerCharacter)
-        character.CurrentPlot.Cancel()
-        AnsiConsole.WriteLine()
-        AnsiConsole.MarkupLine("[red]You cancel yer villainous plot![/]")
-    End Sub
-
-    Private Sub HandleExecutingPlot(character As PlayerCharacter)
-        Dim results = character.CurrentPlot.Execute()
-        AnsiConsole.WriteLine()
-        For Each result In results
-            Select Case result
-                Case PlotResult.Success
-                    AnsiConsole.MarkupLine("[green]You succeed![/]")
-                Case PlotResult.Failure
-                    AnsiConsole.MarkupLine("[red]You fail![/]")
-                Case PlotResult.CaptureHero
-                    AnsiConsole.MarkupLine("[green]You capture the hero![/]")
-                Case PlotResult.CaptureLoveInterest
-                    AnsiConsole.MarkupLine("[green]You capture yer love interest![/]")
-                Case PlotResult.GainMinions
-                    AnsiConsole.MarkupLine("[green]You gain minions![/]")
-                Case PlotResult.GainVillainy
-                    AnsiConsole.MarkupLine("[green]You gain villainy![/]")
-                Case PlotResult.LoseMinions
-                    AnsiConsole.MarkupLine("[red]You lose minions![/]")
-                Case Else
-                    Throw New NotImplementedException
-            End Select
-        Next
-    End Sub
-
-    Private Sub HandleConvolutingPlot(character As PlayerCharacter)
-        character.CurrentPlot.Convolute()
-        AnsiConsole.WriteLine()
-        AnsiConsole.MarkupLine("[green]You convolute yer villainous plot![/]")
-    End Sub
-
-    Private Sub HandleHatchingPlot(character As PlayerCharacter)
-        character.HatchPlot()
-        AnsiConsole.WriteLine()
-        AnsiConsole.MarkupLine("[green]You hatch a villainous plot![/]")
     End Sub
     Private Sub ShowStatistics(character As PlayerCharacter)
         AnsiConsole.WriteLine()
