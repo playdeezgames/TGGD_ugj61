@@ -23,7 +23,7 @@ Public Class Character
                 Case CharacterType.Villain
                     Return "The Villain(you)"
                 Case CharacterType.Minion
-                    Return "A minion"
+                    Return "Minion"
                 Case CharacterType.Hero
                     Return "The Hero"
                 Case CharacterType.LoveInterest

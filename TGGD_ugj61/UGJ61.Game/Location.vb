@@ -25,6 +25,19 @@ Public Class Location
             Return CharacterData.ReadForLocationId(Id).Select(Function(characterId) New Character(characterId)).ToList
         End Get
     End Property
+    ReadOnly Property StackedCharacters As Dictionary(Of CharacterType, List(Of Character))
+        Get
+            Dim result As New Dictionary(Of CharacterType, List(Of Character))
+            For Each character In Characters
+                If result.ContainsKey(character.CharacterType) Then
+                    result(character.CharacterType).Add(character)
+                Else
+                    result.Add(character.CharacterType, New List(Of Character) From {character})
+                End If
+            Next
+            Return result
+        End Get
+    End Property
     Function HasCharacterType(characterType As CharacterType) As Boolean
         Return Characters.Any(Function(character) character.CharacterType = characterType)
     End Function

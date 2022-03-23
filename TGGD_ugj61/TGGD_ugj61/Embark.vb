@@ -64,6 +64,13 @@ Module Embark
     End Sub
 
     Private Sub ShowCharacters(location As Location)
-        AnsiConsole.MarkupLine($"Characters here: {String.Join(", ", location.Characters.Select(Function(x) x.Name))}")
+        Dim stackedCharacters = location.StackedCharacters.Select(Function(entry)
+                                                                      If entry.Value.Count > 1 Then
+                                                                          Return $"{entry.Value.First.Name}(x{entry.Value.Count})"
+                                                                      Else
+                                                                          Return entry.Value.First.Name
+                                                                      End If
+                                                                  End Function)
+        AnsiConsole.MarkupLine($"Characters here: {String.Join(", ", stackedCharacters)}")
     End Sub
 End Module
