@@ -3,13 +3,13 @@
 Public Enum CharacterType
     Villain
     Leftenant
-    Henchman
+    Minion
     LoveInterest
     Hero
 End Enum
 Public Module CharacterTypeExtensions
     <Extension()>
     Function CanExecutePlot(characterType As CharacterType) As Boolean
-        Return characterType = CharacterType.Leftenant OrElse characterType = CharacterType.Henchman
+        Return characterType = CharacterType.Leftenant OrElse characterType = CharacterType.Minion
     End Function
 End Module

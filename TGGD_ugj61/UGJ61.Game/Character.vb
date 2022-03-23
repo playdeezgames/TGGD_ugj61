@@ -22,7 +22,7 @@ Public Class Character
                     Return "Yer trusty leftenant"
                 Case CharacterType.Villain
                     Return "The Villain(you)"
-                Case CharacterType.Henchman
+                Case CharacterType.Minion
                     Return "A minion"
                 Case CharacterType.Hero
                     Return "The Hero"
@@ -74,7 +74,7 @@ Public Class Character
     Sub HireMinion()
         If CanHireMinion Then
             ChangeStatistic(StatisticType.Villainy, -GetStatistic(StatisticType.MinionCost).Value)
-            CharacterData.Create(CharacterType.Henchman, Location.Id)
+            CharacterData.Create(CharacterType.Minion, Location.Id)
             ChangeStatistic(StatisticType.MinionCost, 1)
         End If
     End Sub

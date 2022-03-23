@@ -24,22 +24,22 @@ Public Class Plot
         Dim character As New Character(Id)
         Dim hasHero = character.Location.HasCharacterType(CharacterType.Hero)
         Dim hasLoveInterest = character.Location.HasCharacterType(CharacterType.LoveInterest)
-        If convolutedness > 20 AndAlso Not hasHero Then
+        If convolutedness >= 20 AndAlso Not hasHero Then
             results.Add(PlotResult.CaptureHero)
-            'TODO: add hero
+            CharacterData.Create(CharacterType.Hero, character.Location.Id)
             convolutedness -= 20
         End If
-        If convolutedness > 10 AndAlso Not hasLoveInterest Then
+        If convolutedness >= 10 AndAlso Not hasLoveInterest Then
             results.Add(PlotResult.CaptureLoveInterest)
-            'TODO: add love interest
+            CharacterData.Create(CharacterType.LoveInterest, character.Location.Id)
             convolutedness -= 10
         End If
-        If convolutedness > 5 Then
+        If convolutedness >= 5 Then
             results.Add(PlotResult.GainMinions)
         End If
-        While convolutedness > 5
+        While convolutedness >= 5
             convolutedness -= 5
-            CharacterData.Create(CharacterType.Henchman, character.Location.Id)
+            CharacterData.Create(CharacterType.Minion, character.Location.Id)
         End While
         If convolutedness > 0 Then
             results.Add(PlotResult.GainVillainy)
