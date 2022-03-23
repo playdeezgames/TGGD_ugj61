@@ -44,4 +44,16 @@
                 [LocationType] = @LocationType;",
             MakeParameter("@LocationType", locationType)).Value
     End Function
+    Function ReadForLocationType(locationType As Long) As List(Of Long)
+        Initialize()
+        Using command = CreateCommand("SELECT [LocationId] FROM [Locations] WHERE [LocationType]=@LocationType;", MakeParameter("@LocationType", locationType))
+            Using reader = command.ExecuteReader
+                Dim result As New List(Of Long)
+                While reader.Read
+                    result.Add(CLng(reader("LocationId")))
+                End While
+                Return result
+            End Using
+        End Using
+    End Function
 End Module

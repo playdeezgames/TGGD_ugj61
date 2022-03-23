@@ -41,4 +41,10 @@ Public Class Location
     Function HasCharacterType(characterType As CharacterType) As Boolean
         Return Characters.Any(Function(character) character.CharacterType = characterType)
     End Function
+    ReadOnly Property UnderConstruction As Boolean
+        Get
+            Dim constructionNeeded = LocationStatisticData.Read(Id, StatisticType.ConstructionNeeded)
+            Return constructionNeeded IsNot Nothing AndAlso constructionNeeded.Value > 0
+        End Get
+    End Property
 End Class

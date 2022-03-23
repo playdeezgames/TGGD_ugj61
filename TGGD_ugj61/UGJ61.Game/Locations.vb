@@ -9,4 +9,13 @@ Public Module Locations
         Dim locationId = LocationData.Create(LocationType.DeathTrap)
         LocationStatisticData.Write(locationId, StatisticType.ConstructionNeeded, 20)
     End Sub
+
+    Public Function GetDeathTrap() As Location
+        Dim locationIds = LocationData.ReadForLocationType(LocationType.DeathTrap)
+        If locationIds.Any Then
+            Return New Location(locationIds.First)
+        Else
+            Return Nothing
+        End If
+    End Function
 End Module

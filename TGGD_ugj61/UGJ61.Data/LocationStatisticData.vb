@@ -11,6 +11,19 @@
                 FOREIGN KEY ([LocationId]) REFERENCES [Locations]([LocationId])
             );")
     End Sub
+    Public Function Read(locationId As Long, statisticType As Long) As Long?
+        Initialize()
+        Return ExecuteScalar(Of Long)(
+            "SELECT
+                [StatisticValue]
+            FROM
+                [LocationStatistics]
+            WHERE
+                [LocationId]=@LocationId AND
+                [StatisticType]=@StatisticType;",
+            MakeParameter("@LocationId", locationId),
+            MakeParameter("@StatisticType", statisticType))
+    End Function
     Public Sub Write(locationId As Long, statisticType As Long, statisticValue As Long)
         Initialize()
         ExecuteNonQuery(
