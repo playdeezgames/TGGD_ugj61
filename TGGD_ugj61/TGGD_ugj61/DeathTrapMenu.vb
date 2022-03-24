@@ -13,11 +13,11 @@ Module DeathTrapMenu
             If Locations.Exists(LocationType.DeathTrap) Then
                 Dim deathTrap As Location = Locations.GetDeathTrap()
                 If deathTrap.UnderConstruction Then
-                    AnsiConsole.MarkupLine("Status: Under construction")
+                    AnsiConsole.MarkupLine($"Construction remaining: {Locations.GetDeathTrap().ConstructionNeeded}")
                     If Characters.Exists(CharacterType.Minion) Then
                         prompt.AddChoice(ConstructText)
                     Else
-                        AnsiConsole.MarkupLine("You need a minion to carry on construction")
+                        AnsiConsole.MarkupLine("You need a minion to carry on construction. You have none.")
                     End If
                 Else
                     AnsiConsole.MarkupLine("Status: Ready for use!")

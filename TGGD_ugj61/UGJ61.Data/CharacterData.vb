@@ -38,6 +38,13 @@
                 [CharacterId]=@CharacterId;",
             MakeParameter("@CharacterId", characterId))
     End Function
+    Sub WriteLocationId(characterId As Long, locationId As Long)
+        Initialize()
+        ExecuteNonQuery(
+            "UPDATE [Characters] SET [LocationId]=@LocationId WHERE [CharacterId]=@CharacterId;",
+            MakeParameter("@CharacterId", characterId),
+            MakeParameter("@LocationId", locationId))
+    End Sub
     Function ReadForLocationId(locationId As Long) As List(Of Long)
         Initialize()
         Using command = CreateCommand(
