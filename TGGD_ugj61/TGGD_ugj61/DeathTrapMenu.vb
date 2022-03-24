@@ -14,13 +14,21 @@ Module DeathTrapMenu
                 Dim deathTrap As Location = Locations.GetDeathTrap()
                 If deathTrap.UnderConstruction Then
                     AnsiConsole.MarkupLine("Status: Under construction")
-                    prompt.AddChoice(ConstructText)
+                    If Characters.Exists(CharacterType.Minion) Then
+                        prompt.AddChoice(ConstructText)
+                    Else
+                        AnsiConsole.MarkupLine("You need a minion to carry on construction")
+                    End If
                 Else
-                    AnsiConsole.MarkupLine("Status: Ready for use")
+                    AnsiConsole.MarkupLine("Status: Ready for use!")
                 End If
             Else
                 AnsiConsole.MarkupLine("You have no death trap!")
-                prompt.AddChoice(BeginConstructionText)
+                If Characters.Exists(CharacterType.Minion) Then
+                    prompt.AddChoice(BeginConstructionText)
+                Else
+                    AnsiConsole.MarkupLine("You need a minion to begin construction.")
+                End If
             End If
             prompt.AddChoice(NeverMindText)
             Select Case AnsiConsole.Prompt(prompt)
@@ -37,7 +45,16 @@ Module DeathTrapMenu
 
     End Sub
     Private Sub HandleConstruction(character As PlayerCharacter)
-        Throw New NotImplementedException()
+        Dim minion = AllCharactersOfCharacterType(CharacterType.Minion).First
+        Dim deathTrap = GetDeathTrap()
+        Select Case deathTrap.Construct(minion)
+            Case ConstructionResultType.LostMinion
+                AnsiConsole.MarkupLine("[red]No progress. Minion lost.[/]")
+            Case ConstructionResultType.Success
+                AnsiConsole.MarkupLine("[green]Progress![/]")
+            Case Else
+                Throw New NotImplementedException
+        End Select
     End Sub
     Private Sub HandleBeginConstruction(character As PlayerCharacter)
         Locations.CreateDeathTrap()

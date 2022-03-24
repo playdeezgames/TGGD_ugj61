@@ -62,4 +62,35 @@
                 [CharacterId]=@CharacterId;",
             MakeParameter("@CharacterId", characterId))
     End Function
+    Function ReadCountByCharacterType(characterType As Long) As Long
+        Initialize()
+        Return ExecuteScalar(Of Long)(
+            "SELECT
+                COUNT([CharacterId])
+            FROM
+                [Characters]
+            WHERE
+                [CharacterType] = @CharacterType;",
+            MakeParameter("@CharacterType", characterType)).Value
+    End Function
+    Function ReadForCharacterType(characterType As Long) As List(Of Long)
+        Initialize()
+        Using command = CreateCommand(
+            "SELECT [CharacterId] FROM [Characters] WHERE [CharacterType]=@CharacterType;",
+            MakeParameter("@CharacterType", characterType))
+            Using reader = command.ExecuteReader
+                Dim result As New List(Of Long)
+                While reader.Read
+                    result.Add(CLng(reader("CharacterId")))
+                End While
+                Return result
+            End Using
+        End Using
+    End Function
+    Sub Clear(characterId As Long)
+        Initialize()
+        CharacterPlotData.Clear(characterId)
+        CharacterStatisticData.ClearForCharacterId(characterId)
+        ExecuteNonQuery("DELETE FROM [Characters] WHERE [CharacterId]=@CharacterId;", MakeParameter("@CharacterId", characterId))
+    End Sub
 End Module

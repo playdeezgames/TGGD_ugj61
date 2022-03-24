@@ -47,4 +47,23 @@ Public Class Location
             Return constructionNeeded IsNot Nothing AndAlso constructionNeeded.Value > 0
         End Get
     End Property
+    Property ConstructionNeeded As Long
+        Get
+            Return LocationStatisticData.Read(Id, StatisticType.ConstructionNeeded).Value
+        End Get
+        Set(value As Long)
+            If value < 0 Then
+                value = 0
+            End If
+            LocationStatisticData.Write(Id, StatisticType.ConstructionNeeded, value)
+        End Set
+    End Property
+    Function Construct(minion As Character) As ConstructionResultType
+        If RNG.FromRange(1, 2) = 1 Then
+            minion.Destroy()
+            Return ConstructionResultType.LostMinion
+        End If
+        ConstructionNeeded -= CLng(RNG.FromRange(1, 6))
+        Return ConstructionResultType.Success
+    End Function
 End Class

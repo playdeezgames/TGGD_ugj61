@@ -106,4 +106,7 @@ Public Class Character
             ChangeStatistic(StatisticType.MinionCost, 1)
         End If
     End Sub
+    Sub Destroy()
+        CharacterData.Clear(Id)
+    End Sub
 End Class

@@ -26,4 +26,9 @@
             MakeParameter("@StatisticType", statisticType),
             MakeParameter("@StatisticValue", statisticValue))
     End Sub
+
+    Friend Sub ClearForCharacterId(characterId As Long)
+        Initialize()
+        ExecuteNonQuery("DELETE FROM [CharacterStatistics] WHERE [CharacterId]=@CharacterId", MakeParameter("@CharacterId", characterId))
+    End Sub
 End Module
