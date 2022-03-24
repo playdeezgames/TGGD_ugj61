@@ -58,4 +58,11 @@
             End Using
         End Using
     End Function
+    Sub Clear(locationId As Long)
+        Initialize()
+        LocationStatisticData.ClearForLocationId(locationId)
+        ExecuteNonQuery(
+            "DELETE FROM [Locations] WHERE [LocationId]=@LocationId;",
+            MakeParameter("@LocationId", locationId))
+    End Sub
 End Module

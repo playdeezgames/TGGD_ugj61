@@ -15,6 +15,8 @@ Public Class Location
             Select Case LocationType
                 Case LocationType.Lair
                     Return "Yer Lair"
+                Case LocationType.DeathTrap
+                    Return "Yer DeathTrap"
                 Case Else
                     Throw New NotImplementedException
             End Select
@@ -41,6 +43,11 @@ Public Class Location
     Function HasCharacterType(characterType As CharacterType) As Boolean
         Return Characters.Any(Function(character) character.CharacterType = characterType)
     End Function
+    ReadOnly Property HasCharacter As Boolean
+        Get
+            Return Characters.Any
+        End Get
+    End Property
     ReadOnly Property UnderConstruction As Boolean
         Get
             Dim constructionNeeded = LocationStatisticData.Read(Id, StatisticType.ConstructionNeeded)
@@ -66,4 +73,7 @@ Public Class Location
         ConstructionNeeded -= CLng(RNG.FromRange(1, 6))
         Return ConstructionResultType.Success
     End Function
+    Sub Destroy()
+        LocationData.Clear(Id)
+    End Sub
 End Class

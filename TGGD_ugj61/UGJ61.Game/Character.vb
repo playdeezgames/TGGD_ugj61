@@ -94,7 +94,7 @@ Public Class Character
     End Property
     ReadOnly Property CanPlaceInDeathTrap As Boolean
         Get
-            Return CharacterType = CharacterType.LoveInterest OrElse CharacterType = CharacterType.Hero
+            Return (CharacterType = CharacterType.LoveInterest OrElse CharacterType = CharacterType.Hero) AndAlso Location.LocationType <> LocationType.DeathTrap
         End Get
     End Property
     ReadOnly Property CanMonologueAt As Boolean

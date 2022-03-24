@@ -43,4 +43,10 @@
             MakeParameter("@StatisticType", statisticType),
             MakeParameter("@StatisticValue", statisticValue))
     End Sub
+    Sub ClearForLocationId(locationId As Long)
+        Initialize()
+        ExecuteNonQuery(
+            "DELETE FROM [LocationStatistics] WHERE [LocationId]=@LocationId;",
+            MakeParameter("@LocationId", locationId))
+    End Sub
 End Module

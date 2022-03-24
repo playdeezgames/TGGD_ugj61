@@ -13,6 +13,8 @@ Public Module StatisticTypeExtensions
                 Name = "Villainy"
             Case StatisticType.MinionCost
                 Name = "Minion Cost"
+            Case StatisticType.ConstructionNeeded
+                Name = "Construction Needed"
             Case Else
                 Throw New NotImplementedException
         End Select
